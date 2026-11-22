@@ -1,0 +1,36 @@
+<Window x:Class="Saman.UI.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="سامان سیستم" Width="1280" Height="760" FlowDirection="RightToLeft" FontFamily="Vazirmatn, Tahoma" Background="{StaticResource Bg}">
+  <Window.InputBindings><KeyBinding Key="N" Modifiers="Ctrl" Command="{x:Static ApplicationCommands.New}"/></Window.InputBindings>
+  <Window.CommandBindings><CommandBinding Command="{x:Static ApplicationCommands.New}" Executed="NewIntake_Click"/></Window.CommandBindings>
+  <DockPanel>
+    <Border DockPanel.Dock="Right" Width="70" Background="{StaticResource Pcb}">
+      <StackPanel>
+        <TextBlock Text="س" Foreground="White" FontSize="22" HorizontalAlignment="Center" Margin="0,14"/>
+        <Button Content="＋" ToolTip="پذیرش جدید (Ctrl+N)" Click="NewIntake_Click" Width="44" Height="44" FontSize="22" Background="{StaticResource Copper}" Foreground="White" BorderThickness="0"/>
+        <Button Content="⚙" ToolTip="تنظیمات" Click="Settings_Click" Width="44" Height="44" FontSize="20" Margin="0,10,0,0" Background="{StaticResource Pcb2}" Foreground="White" BorderThickness="0"/>
+      </StackPanel>
+    </Border>
+    <ItemsControl x:Name="LaneList" Margin="12">
+      <ItemsControl.ItemsPanel><ItemsPanelTemplate><UniformGrid Rows="1"/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+      <ItemsControl.ItemTemplate><DataTemplate>
+        <Border Background="#DDE5E2" CornerRadius="8" Margin="5" AllowDrop="True" Drop="Lane_Drop" Tag="{Binding}">
+          <DockPanel>
+            <TextBlock DockPanel.Dock="Top" Text="{Binding Title}" FontWeight="Bold" Margin="12,9,12,6"/>
+            <ItemsControl ItemsSource="{Binding Cards}" Margin="8,0,8,8">
+              <ItemsControl.ItemTemplate><DataTemplate>
+                <Border Background="White" CornerRadius="7" Margin="0,0,0,8" Padding="9" BorderThickness="0,0,5,0" PreviewMouseMove="Card_Move" Tag="{Binding}">
+                  <Border.BorderBrush><SolidColorBrush Color="#146354"/></Border.BorderBrush>
+                  <StackPanel>
+                    <TextBlock Text="{Binding Title}" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Customer}" Foreground="#667571" FontSize="12"/>
+                    <TextBlock Text="{Binding Number, StringFormat=#{0}}" FontSize="11" Foreground="#667571"/>
+                  </StackPanel>
+                </Border>
+              </DataTemplate></ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </DockPanel>
+        </Border>
+      </DataTemplate></ItemsControl.ItemTemplate>
+    </ItemsControl>
+  </DockPanel>
+</Window>

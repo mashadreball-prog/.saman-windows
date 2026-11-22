@@ -1,0 +1,8 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Design tokens: green PCB + copper (approved preview) -->
+  <SolidColorBrush x:Key="Pcb" Color="#0D4A40"/><SolidColorBrush x:Key="Pcb2" Color="#146354"/>
+  <SolidColorBrush x:Key="Copper" Color="#C9702A"/><SolidColorBrush x:Key="Bg" Color="#E9EEEC"/>
+  <SolidColorBrush x:Key="Ok" Color="#1D9A62"/><SolidColorBrush x:Key="Warn" Color="#D69A0A"/><SolidColorBrush x:Key="Err" Color="#D14338"/>
+  <SolidColorBrush x:Key="TradeMobile" Color="#2F7BD6"/><SolidColorBrush x:Key="TradeAV" Color="#7A4FD0"/><SolidColorBrush x:Key="TradeAppliance" Color="#12998F"/>
+  <SolidColorBrush x:Key="TradeCar" Color="#E0572B"/><SolidColorBrush x:Key="TradePc" Color="#56677A"/><SolidColorBrush x:Key="TradeBoard" Color="#C58A0B"/>
+</ResourceDictionary>

@@ -1,0 +1,49 @@
+<Window x:Class="Saman.UI.IntakeWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="پذیرش جدید" Width="760" Height="720" FlowDirection="RightToLeft" FontFamily="Vazirmatn, Tahoma" Background="{StaticResource Bg}" WindowStartupLocation="CenterOwner">
+  <Window.Resources>
+    <BooleanToVisibilityConverter x:Key="B2V"/>
+    <Style TargetType="TextBox"><Setter Property="Padding" Value="6,5"/><Setter Property="Margin" Value="0,2,0,8"/></Style>
+    <Style TargetType="TextBlock" x:Key="Lbl"><Setter Property="FontSize" Value="12"/><Setter Property="Foreground" Value="#556"/></Style>
+  </Window.Resources>
+  <DockPanel Margin="16">
+    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="0,10,0,0">
+      <Button Content="ثبت پذیرش" Padding="22,8" Click="Save_Click" Background="{StaticResource Copper}" Foreground="White" BorderThickness="0"/>
+      <Button Content="انصراف" Padding="18,8" Margin="8,0,0,0" Click="Cancel_Click"/>
+      <TextBlock Text="{Binding Status}" VerticalAlignment="Center" Margin="14,0" Foreground="{StaticResource Pcb2}"/>
+    </StackPanel>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+      <StackPanel>
+        <Border Background="White" CornerRadius="8" Padding="12" Margin="0,0,0,12" BorderBrush="{StaticResource Copper}" BorderThickness="0,0,4,0">
+          <StackPanel>
+            <TextBlock Text="پذیرش هوشمند: جمله را بنویسید (مثلاً: تلویزیون سامسونگ ۴۲ اینچ برای آقای رضایی، صفحه سیاه، با ریموت)" Style="{StaticResource Lbl}" TextWrapping="Wrap"/>
+            <TextBox Text="{Binding SmartText, UpdateSourceTrigger=PropertyChanged}" Height="64" TextWrapping="Wrap" AcceptsReturn="True"/>
+            <Button Content="تحلیل و پر کردن فرم" Click="Analyze_Click" HorizontalAlignment="Left" Padding="16,6" Background="{StaticResource Pcb2}" Foreground="White" BorderThickness="0"/>
+          </StackPanel>
+        </Border>
+        <UniformGrid Columns="2">
+          <StackPanel Margin="0,0,10,0"><TextBlock Text="صنف" Style="{StaticResource Lbl}"/>
+            <ComboBox ItemsSource="{Binding Trades}" DisplayMemberPath="Title" SelectedValuePath="Value" SelectedValue="{Binding Trade, Mode=TwoWay}" Margin="0,2,0,8" Padding="6,5"/></StackPanel>
+          <StackPanel><TextBlock Text="نوع دستگاه" Style="{StaticResource Lbl}"/><TextBox Text="{Binding DeviceType}"/></StackPanel>
+          <StackPanel Margin="0,0,10,0"><TextBlock Text="برند" Style="{StaticResource Lbl}"/><TextBox Text="{Binding Brand}"/></StackPanel>
+          <StackPanel><TextBlock Text="مدل / سایز" Style="{StaticResource Lbl}"/><TextBox Text="{Binding Model}" FlowDirection="LeftToRight"/></StackPanel>
+          <StackPanel Margin="0,0,10,0"><TextBlock Text="IMEI / سریال / VIN" Style="{StaticResource Lbl}"/><TextBox Text="{Binding Serial}" FlowDirection="LeftToRight" LostFocus="Serial_LostFocus"/></StackPanel>
+          <StackPanel><TextBlock Text="نام مشتری" Style="{StaticResource Lbl}"/><TextBox Text="{Binding CustomerName}"/></StackPanel>
+          <StackPanel Margin="0,0,10,0"><TextBlock Text="موبایل مشتری" Style="{StaticResource Lbl}"/><TextBox Text="{Binding Phone}" FlowDirection="LeftToRight"/></StackPanel>
+          <StackPanel/>
+          <StackPanel Margin="0,0,10,0"><TextBlock Text="برآورد (تومان)" Style="{StaticResource Lbl}"/><TextBox Text="{Binding EstimateToman}" FlowDirection="LeftToRight"/></StackPanel>
+          <StackPanel><TextBlock Text="پیش‌دریافت (تومان)" Style="{StaticResource Lbl}"/><TextBox Text="{Binding AdvanceToman}" FlowDirection="LeftToRight"/></StackPanel>
+        </UniformGrid>
+        <Border Background="#FFF6E0" BorderBrush="#D69A0A" BorderThickness="0,0,4,0" Padding="10" Margin="0,0,0,10" Visibility="{Binding HasHistory, Converter={StaticResource B2V}}">
+          <StackPanel>
+            <TextBlock Text="{Binding HistoryNotice}" TextWrapping="Wrap"/>
+            <Border Background="{StaticResource Pcb2}" CornerRadius="4" Padding="10,2" Margin="0,6,0,0" HorizontalAlignment="Right" Visibility="{Binding InWarranty, Converter={StaticResource B2V}}">
+              <TextBlock Text="در مدت گارانتی تعمیر" Foreground="White" FontSize="12"/>
+            </Border>
+          </StackPanel>
+        </Border>
+        <TextBlock Text="ایراد اعلام‌شده" Style="{StaticResource Lbl}"/><TextBox Text="{Binding Complaint}" Height="52" TextWrapping="Wrap" AcceptsReturn="True"/>
+        <TextBlock Text="لوازم همراه" Style="{StaticResource Lbl}"/><TextBox Text="{Binding Accessories}"/>
+      </StackPanel>
+    </ScrollViewer>
+  </DockPanel>
+</Window>
