@@ -1,0 +1,28 @@
+name: Build Saman Windows
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Restore
+        run: dotnet restore Saman.Windows.sln
+      - name: Build
+        run: dotnet build Saman.Windows.sln -c Release --no-restore 2>&1 | Tee-Object -FilePath build_log.txt
+      - name: Collect output
+        if: always()
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path out | Out-Null
+          if (Test-Path Saman.UI/bin/Release/net48) { Copy-Item Saman.UI/bin/Release/net48/* out -Recurse }
+          Copy-Item build_log.txt out -ErrorAction SilentlyContinue
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Saman-Windows-Release
+          path: out
